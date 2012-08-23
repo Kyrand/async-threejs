@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script src="/js/Three.js"></script>
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      #container {
+        position:absolute;
+        left:0px;
+        top:0px;
+        width:100%;
+        height:100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+
+    <script src="/js/raf.js"></script>
+
+  </head>
+
+  <body>
+    <!-- <script src="/js/scene_1.js"></script> -->
+    <script>
+
+// Scene dimensions
+var SCENE_WIDTH = window.innerWidth, SCENE_HEIGHT = window.innerHeight,
+// camera attributes
+CAMERA_VIEW_ANGLE = 45,
+CAMERA_ASPECT = SCENE_WIDTH / SCENE_HEIGHT,
+// we'll be attaching the scene to a DOM element
+scene_container = $('#container'),
+// scene_container = document.getElementById('container'),
+// THREE.js key elements
+// This will do the actual GL-drawing:
+renderer = new THREE.WebGLRenderer(),
+// This is the eye on the world:
+camera = new THREE.PerspectiveCamera(
+    CAMERA_VIEW_ANGLE, CAMERA_ASPECT, 0.1/*NEAR*/, 1000/*FAR*/
+),
+// This sets the... 
+scene = new THREE.Scene();
+// Now to hook up the THREE.js pieces
+// add camera to scene
+scene.add(camera)
+// pull camera back to better vantage point
+camera.position.z = 300;
+// set renderer's size
+renderer.setSize(SCENE_WIDTH, SCENE_HEIGHT);
+// and attach to our container DOM 
+scene_container.append(renderer.domElement);
+
+
+
+    </script>
+    <div id='container'></div>
+  </body>
+
+</html>
+

@@ -1,0 +1,383 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/theme/default.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<script>
+			// If the query includes 'print-pdf' we'll use the PDF print sheet
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Three Dimensions Good</h1>
+					<h3>Crafting a 3D Web with Three.js</h3>
+				</section>
+				
+				<section>
+					<h2>Heads Up</h2>
+					<p>
+                                          Three.js is a library that aims to take the pain out of creating 3D worlds in WebGL. How it does this and how well is the main thrust of this talk...
+					</p>
+					<p>
+						<i><small>- <a href="http://hakim.se">Kyran Dale</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small></i>
+					</p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you run the speaker notes server.
+					</aside>
+				</section>
+				
+				<section>
+					<h2>The Shape of Things to Come</h2>
+                                        <ul>
+                                          <li>The good, the bad and the ugly.</li>
+                                          <li>Basic scene-setting.</li>
+                                          <li>A little geometry lesson.</li>
+                                          <li>A procedural fireworks display.</li>
+                                        </ul>
+				</section>
+				
+                                <section>
+                                  <h2> The Good, the Bad, and the Ugly of THREE.js</h2>
+                                  <img src='images/the_GBU.jpg' height='440px'>
+                                </section>
+                                
+				<section>
+					<h2>The Good</h2>
+                                        <ul>
+                                          <li>You don't have to know any of <a href='http://www.ibiblio.org/e-notes/webgl/gpu/make_cone.htm'>this</a> ... </li>
+                                          <li>... to do <a href='http://mrdoob.github.com/three.js/'>this.</a></li>
+                                          <li>Meaning you can finally scratch that JS 3D itch.</li>
+                                          <li><a href="http://www.smartjava.org/content/render-open-data-3d-world-globe-threejs">Render open data on a 3D globe</a> with THREE.js.</li>
+                                          <li><a href="http://mrdoob.github.com/three.js/examples/webgl_materials_cubemap_balls_refraction.html">Cubemapped balls</a> - refraction demo.</li>
+                                          <li>Three.js <a href="http://blackjk3.github.com/threefab/">fabrication tool.</a></li>
+                                          <li><a href="http://lab.aerotwist.com/webgl/undulating-monkey/">Drugs are bad.</a></li>
+                                        </ul>
+				</section>
+
+                                <section>
+                                  <h2>The Bad</h2>
+                                  <p>You can't avoid a little maths. You don't have to love vectors and matrices but you should try and feel a little fondness for them.</p>
+                                  <img src='images/a_little_maths.png' height='380px'>
+                                </section>
+
+                                <section>
+                                  <h2>The Ugly</h2>
+                                  <ul>
+                                 <li>Documentation is for wimps.</li> 
+                                 <li>API and core changing all the time.</li>
+                                  </ul>
+                                  <img src='images/what_docs.png' height='440px'>
+                                </section>
+
+                                <section>
+                                  <h2>What to do about it</h2>
+                                  <ul>
+                                    <li>http://threejsdoc.appspot.com/</li>
+                                    <li>Print out key components, at least Vector3 and Matrix3 classes.</li>
+                                    <li>There's a deal of clean, well-commented demos out there.</li>
+                                    <li>Watch those version numbers!!!</li>
+                                    <li>Stackoverflow is your friend.</li>
+                                    </ul>
+                                  
+                                </section>
+                                
+                                <section>
+                                      <h2>Basic Setup</h2>
+					<pre><code contenteditable>
+var SCENE_WIDTH = 800, SCENE_HEIGHT = 600,
+// camera attributes
+CAMERA_VIEW_ANGLE = 45,
+CAMERA_ASPECT = SCENE_WIDTH / SCENE_HEIGHT,
+// we'll be attaching the scene to a DOM element
+scene_container = $('#container'),
+// THREE.js key elements
+// This will do the actual GL-drawing:
+renderer = new THREE.WebGLRenderer(),
+// This is the eye on the world:
+camera = new THREE.PerspectiveCamera(
+    CAMERA_VIEW_ANGLE, CAMERA_ASPECT, 0.1/*NEAR*/, 1000/*FAR*/
+),
+// This sets the... 
+scene = new THREE.Scene();
+// Now to hook up the THREE.js pieces
+scene.add(camera)
+// pull camera back to better vantage point
+camera.position.z = 300;
+// set renderer's size
+renderer.setSize(SCENE_WIDTH, SCENE_HEIGHT);
+// and attach to our container DOM 
+scene_container.append(renderer.domElement);
+                                            
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>Basic Setup</h2>
+                                      <iframe src="pages/scene_1.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>Creating a world</h2>
+					<pre><code contenteditable>
+// Adding a cube...
+var cube = new THREE.Mesh(
+    new THREE.CubeGeometry(50,50,50),
+    new THREE.MeshBasicMaterial( {color: 0x111111, opacity:1})
+);
+scene.add(cube);
+renderer.render(scene, camera);
+                                            
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>Creating a world</h2>
+                                      <iframe src="pages/scene_2.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>Let there be lights</h2>
+					<pre><code contenteditable>
+// some light on the situation
+var cube = new THREE.Mesh(
+    new THREE.CubeGeometry(50,50,50),
+//    new THREE.MeshBasicMaterial( {color: 0x111111, opacity:1})
+    new THREE.MeshLambertMaterial( {color: 0xcccccc})
+
+);
+scene.add(cube);
+// some light on the situation
+var light = new THREE.SpotLight();
+light.position.set( 150, 150, 150 );
+scene.add(light);
+
+camera.position.y = 50;
+cube.rotation.y += 0.7; // !NOTE! all rotations in radians
+
+renderer.render(scene, camera);
+                                            
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>Let there be lights</h2>
+                                      <iframe src="pages/scene_3.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>Wrapping the box...</h2>
+					<pre><code contenteditable>
+
+// A grey background for the white texture
+renderer.setClearColorHex(0xEEEEEE, 1.0); 
+// Add a texture-map to the cube
+var cube = new THREE.Mesh(
+    new THREE.CubeGeometry(50,50,50),
+    // new THREE.MeshBasicMaterial( {color: 0x111111, opacity:1})
+    // new THREE.MeshLambertMaterial( {color: 0xcccccc})
+    new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/images/async_logo.jpg' ) })
+);
+scene.add(cube);
+// and animate
+animate();
+function animate() {
+    requestAnimationFrame( animate );
+    renderer.render(scene, camera);
+}
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>Wrapping the box...</h2>
+                                      <iframe src="pages/scene_4.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>Putting a spin on things</h2>
+					<pre><code contenteditable>
+
+var last_t = new Date().getTime();
+function animate(t) {
+     // smoothly rotate about y (our up) axis  
+     cube.rotation.y += (t-last_t)*0.001;
+     last_t = t;
+     requestAnimationFrame(animate);
+     renderer.render(scene, camera);
+};
+animate(new Date().getTime());
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>Putting a spin on things</h2>
+                                      <iframe src="pages/scene_5.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>A little construction work</h2>
+					<pre><code contenteditable>
+function add_cube(x, y, z){
+    var cube = new THREE.Mesh(
+        new THREE.CubeGeometry(50,50,50),
+        new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/images/async_logo.jpg' ) })
+    );
+    cube.position.set(x, y, z);
+    scene.add(cube);
+    return cube;
+}
+
+var scene_cubes = [];
+scene_cubes.push(add_cube(0, 0, 0));
+scene_cubes.push(add_cube(0, 50, 0));
+scene_cubes.push(add_cube(0, 100, 0));
+
+function animate(t) {
+     for(i in scene_cubes){
+         cube = scene_cubes[i];
+         cube.rotation.y += 2 * (i%2 - 0.5) * (t-last_t)*0.001;
+     }
+     last_t = t;
+     requestAnimationFrame(animate);
+     renderer.render(scene, camera);
+};
+					</code></pre>
+                                </section>
+                                
+                                <section>
+                                      <h2>A little construction work</h2>
+                                      <iframe src="pages/scene_6.html"></iframe>
+                                </section>
+                                
+                                <section>
+                                      <h2>Adding a skybox</h2>
+					<pre><code contenteditable>
+    cameraCube = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 100000 );
+    sceneCube = new THREE.Scene();
+    var path = "/images/cube/skybox/";
+    var format = '.jpg';
+    var urls = [
+	path + 'px' + format, path + 'nx' + format,
+	path + 'py' + format, path + 'ny' + format,
+	path + 'pz' + format, path + 'nz' + format
+    ];
+
+    var textureCube = THREE.ImageUtils.loadTextureCube( urls, new THREE.CubeRefractionMapping() );
+    var material = new THREE.MeshBasicMaterial( { color: 0xffffff, envMap: textureCube, refractionRatio: 0.95 } );
+
+    // [ a little shader boiler-plate ]
+
+    mesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+    sceneCube.add( mesh );
+    // in animate cycle
+    renderer.render( sceneCube, cameraCube );
+                                            
+					</code></pre>
+                                </section>
+                                <section>
+                                      <h2>Adding a sky-box</h2>
+                                      <iframe src="pages/scene_skymap.html"></iframe>
+                                </section>
+
+                                
+                                <section>
+                                      <h2>Global and local coordinates</h2>
+                                  <img src='images/local_global_coords.png'>
+                                </section>
+                                
+                                <section>
+                                  <h2>Making a little fireworks display</h2>
+                                  <img src='images/firework_coords.png' />
+
+                                </section>
+                                
+				<section>
+				  <h2>Acknowledgements</h2>
+                                  <ul>
+                                    <li>Mr Doob and friends</li>
+                                    <li>Paul Lewis at Aerotwist</li>
+                                    <li>Ilmari Heikkinen - Google labs</li>
+                                    <li>Evgeny Demidov - Ibiblio</li>
+                                        
+				</section>
+                                
+				<section>
+					<h1>THE END</h1>
+					<h3>BY Kyran Dale </h3>
+				</section>
+			</div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Presentation progress bar -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+                                rollingLinks: false,
+				
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/linear(2d)
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+					{ src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+				]
+			});
+			
+		</script>
+
+	</body>
+</html>

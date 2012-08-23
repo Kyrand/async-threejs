@@ -1,0 +1,184 @@
+<html>
+  <head>
+    <script src="/js/Three.js"></script>
+    <script src="/js/jquery-1.7.2.min.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+
+      #container {
+        position:absolute;
+        left:0px;
+        top:0px;
+        width:100%;
+        height:100%;
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+
+    <script src="/js/raf.js"></script>
+
+  </head>
+
+  <body>
+    <!-- <script src="/js/scene_2.js"></script> -->
+    <script>
+// Scene dimensions
+//var SCENE_WIDTH = 800, SCENE_HEIGHT = 600,
+var SCENE_WIDTH = window.innerWidth, SCENE_HEIGHT = window.innerHeight,
+// camera attributes
+CAMERA_VIEW_ANGLE = 45,
+CAMERA_ASPECT = SCENE_WIDTH / SCENE_HEIGHT,
+// we'll be attaching the scene to a DOM element
+// scene_container = $('#container'),
+scene_container = document.createElement( 'div' );
+document.body.appendChild(scene_container);
+// scene_container = document.getElementById('container'),
+// THREE.js key elements
+// This will do the actual GL-drawing:
+renderer = new THREE.WebGLRenderer(),
+// This is the eye on the world:
+camera = new THREE.PerspectiveCamera(
+    CAMERA_VIEW_ANGLE, CAMERA_ASPECT, 0.1/*NEAR*/, 1000/*FAR*/
+),
+// This sets the... 
+scene = new THREE.Scene();
+// Now to hook up the THREE.js pieces
+// add camera to scene
+scene.add(camera)
+// pull camera back to better vantage point
+camera.position.z = 300;
+// set renderer's size
+renderer.setSize(SCENE_WIDTH, SCENE_HEIGHT);
+// and attach to our container DOM 
+scene_container.appendChild(renderer.domElement);
+
+// scene 2, add summit
+var cube = new THREE.Mesh(
+    new THREE.CubeGeometry(50,50,50),
+    // new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/images/async_logo.jpg' ) })
+    new THREE.MeshBasicMaterial( {color: 0x111111, opacity:1})
+);
+scene.add(cube);
+renderer.render(scene, camera);
+
+
+    </script>
+    <div id='container'></div>
+<!--     <script> -->
+<!--       var renderer = new THREE.WebGLRenderer({antialias: true}); -->
+<!--       renderer.setSize(document.body.clientWidth, document.body.clientHeight); -->
+      
+<!--       renderer = new THREE.WebGLRenderer(); -->
+<!--       clock = new THREE.Clock(); -->
+<!--       renderer.setSize( window.innerWidth, window.innerHeight ); -->
+<!--       renderer.setFaceCulling( 0 ); -->
+<!--       renderer.autoClear = false; -->
+<!--       document.body.appendChild(renderer.domElement); -->
+<!--       renderer.setClearColorHex(0xEEEEEE, 1.0); -->
+<!--       renderer.clear(); -->
+<!--       var fov = 45; // camera field-of-view in degrees -->
+<!--       var width = renderer.domElement.width; -->
+<!--       var height = renderer.domElement.height; -->
+<!--       var aspect = width / height; // view aspect ratio -->
+<!--       <\!-- var near = 1; // near clip plane -\-> -->
+<!--       <\!-- var far = 101000; // far clip plane -\-> -->
+<!--       var camera = new THREE.PerspectiveCamera( fov, aspect, 1, 1000000 ); -->
+<!--       camera.position.z = 300; -->
+<!--       controls = new THREE.FirstPersonControls( camera ); -->
+
+<!--       controls.movementSpeed = 70; -->
+<!--       controls.lookSpeed = 0.05; -->
+<!--       controls.lookVertical = true; -->
+<!--       controls.constrainVertical = true; -->
+<!--       <\!-- controls.verticalMin = 1.1; -\-> -->
+<!--       <\!-- controls.verticalMax = 2.2; -\-> -->
+<!--       controls.noFly = false; -->
+
+
+      
+<!-- <\!-- controls = new THREE.FirstPersonControls( camera ); -\-> -->
+<!-- <\!-- controls.lookSpeed = 0.05; -\-> -->
+<!-- <\!-- controls.movementSpeed = 70; -\-> -->
+<!-- <\!-- controls.noFly = false; -\-> -->
+<!-- <\!-- controls.lookVertical = false; -\-> -->
+<!-- <\!-- controls.constrainVertical = true; -\-> -->
+<!-- <\!-- controls.verticalMin = 1.5;  -\-> -->
+<!-- <\!-- controls.verticalMax = 2.0;  -\-> -->
+<!-- <\!-- controls.lon = -110; -\-> -->
+<!--       var scene = new THREE.Scene(); -->
+<!--       scene.add(camera); -->
+<!--       <\!-- material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/crate.gif' ) }); -\-> -->
+<!--       <\!-- material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/images/async_logo.gif' ) }); -\-> -->
+<!--       var cube = new THREE.Mesh( -->
+<!--         new THREE.CubeGeometry(50,50,50), -->
+<!--         <\!-- new THREE.MeshBasicMaterial({color: 0xcccccc, opacity: 1}) -\-> -->
+<!--         <\!-- new THREE.MeshLambertMaterial({color: 0xcccccc}) -\-> -->
+<!--              new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/images/async_logo.jpg' ) }) -->
+<!--       ); -->
+<!--       scene.add(cube); -->
+<!--       var ambient = new THREE.AmbientLight( 0x050505 ); -->
+<!--       scene.add( ambient ); -->
+
+<!--       var light = new THREE.SpotLight(); -->
+<!--       light.position.set( 150, 300, 150 ); -->
+<!--       scene.add(light); -->
+<!--       <\!-- var litCube = new THREE.Mesh( -\-> -->
+<!--       <\!--   new THREE.CubeGeometry(50, 50, 50), -\-> -->
+<!--       <\!--   new THREE.MeshLambertMaterial({color: 0xffffff})); -\-> -->
+<!--       <\!-- litCube.position.y = 50; -\-> -->
+<!--       <\!-- scene.add(litCube); -\-> -->
+
+<!-- // Add a little sky-box -->
+<!-- var urlPrefix	= "/images/podsky/"; -->
+<!-- var urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg", -->
+<!-- 	     urlPrefix + "posy.jpg", urlPrefix + "negy.jpg", -->
+<!-- 	     urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ]; -->
+<!-- var textureCube	= THREE.ImageUtils.loadTextureCube( urls ); -->
+<!-- <\!-- textureCube.format = THREE.RGBFormat; -\-> -->
+
+<!-- // init the cube shadder -->
+<!-- var shader	= THREE.ShaderUtils.lib["cube"]; -->
+<!-- shader.uniforms["tCube"].texture = textureCube; -->
+<!-- var material = new THREE.ShaderMaterial({ -->
+<!--     fragmentShader	: shader.fragmentShader, -->
+<!--     vertexShader	: shader.vertexShader, -->
+<!--     uniforms	: shader.uniforms, -->
+<!--     depthWrite: false, -->
+<!--     side: THREE.BackSide  -->
+<!-- }); -->
+<!-- //build the skybox Mesh -->
+<!-- var sky_cube_dim = 100000; -->
+<!-- skyboxMesh	= new THREE.Mesh( new THREE.CubeGeometry( sky_cube_dim, sky_cube_dim, sky_cube_dim), material ); -->
+<!-- //add it to the scene -->
+<!-- scene.add( skyboxMesh ); -->
+
+
+<!--       renderer.render(scene, camera);  -->
+<!--       var paused = false; -->
+<!--       var last_t = new Date().getTime(); -->
+<!--       function animate(t) { -->
+<!--         if (!paused) { -->
+<!--           cube.rotation.y += (t-last_t)*0.001; -->
+<!--           <\!-- camera.position.set( -\-> -->
+<!--           <\!--   Math.sin(t/1000)*300, 150, Math.cos(t/1000)*300); -\-> -->
+<!--           renderer.clear();  -->
+<!--           <\!-- camera.lookAt(scene.position); -\-> -->
+<!--           last_t = t; -->
+<!--           controls.update(clock.getDelta()); -->
+<!--           renderer.render(scene, camera); -->
+<!--         } -->
+<!--         window.requestAnimationFrame(animate, renderer.domElement); -->
+<!--       }; -->
+<!--       animate(new Date().getTime()); -->
+<!--       <\!-- onmessage = function(ev) { -\-> -->
+<!--       <\!--   paused = (ev.data == 'pause'); -\-> -->
+<!--       <\!-- }; -\-> -->
+<!--     </script> -->
+  </body>
+
+</html>
+
